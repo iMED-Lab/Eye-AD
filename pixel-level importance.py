@@ -3,8 +3,8 @@ Descripttion: Visualization
 version: 
 Author: Kevin
 Date: 2022-08-19 09:36:49
-LastEditors: 
-LastEditTime: 2023-06-01 15:16:23
+LastEditors: JinkuiH jinkui7788@gmail.com
+LastEditTime: 2023-07-13 15:21:09
 '''
 
 from email import header
@@ -21,7 +21,7 @@ from conf import config
 import os
 import numpy as np
 import cv2
-from models.model import IMIGCNN
+from models.model import *
 from pack.utils_pack import KVLayersDataset, minEnclosingCircle, extract_maximum_connected_area, tensor2array, array2image, array2tensor, arrayHStack, FetchAllData
 from pack.faz_seg_pack import FAZ_SEG
 from pathlib import Path
@@ -74,7 +74,7 @@ if __name__ == '__main__':
     # c = FAZ_SEG("saved_models/state-382-FAZ-89.71524198321349.pth")
     c = FAZ_SEG("saved_models/state-epoch-251.pth")
 
-    my_models = IMIGCNN(in_channels=config.in_channels, num_classes=config.num_class, patch_size = config.patchSize)
+    my_models = EyeADCNN(in_channels=config.in_channels, num_classes=config.num_class, patch_size = config.patchSize)
 
     
 

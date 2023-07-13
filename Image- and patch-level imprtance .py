@@ -4,7 +4,7 @@ version:
 Author: Kevin
 Date: 2022-08-19 09:36:49
 LastEditors: JinkuiH jinkui7788@gmail.com
-LastEditTime: 2023-07-13 14:45:33
+LastEditTime: 2023-07-13 15:20:13
 '''
 
 
@@ -12,7 +12,6 @@ from cProfile import label
 from html.entities import name2codepoint
 from tkinter import image_names
 from conf import config 
-from GAT.models import *
 import torch
 import os
 import numpy as np
@@ -24,7 +23,7 @@ import random
 import logging
 from logging import handlers
 from utils.matrix import claMetrix
-from models.model import IMIGCNN
+from models.model import *
 import cv2
 import matplotlib.pyplot as plt
 import math
