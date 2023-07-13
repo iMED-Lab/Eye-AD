@@ -14,7 +14,7 @@ Eye-AD: A multilevel graph-based model for Alzheimer’s Disease detection and r
 ## Introduction
 ![Eye-AD](img\Eye-AD.png)
 
-We design a novel multilevel graph representation to formulate and mine the intra-instance and inter-instance relationship of multiple en face projections acquired by OCTA devices, including superficial vascular complex, deep vascular complex, and choriocapillaris.
+In this work, we investigate the use of retinal images, i.e., Optical Coherence Tomography Angiography (OCTA), an imaging technique that is able to produce high-resolution im- ages of depth-resolved retinal and choroidal microvasculature, to detect AD. We design a novel multilevel graph representation to formulate and mine the intra-instance and inter-instance relationship of multiple en face projections acquired by OCTA devices, including superficial vascular complex, deep vascular complex, and choriocapillaris.
 
 ## Getting Started
 
