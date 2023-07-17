@@ -11,7 +11,6 @@ from email import header
 '''
 
 from conf import config 
-from GAT.models import *
 import torch
 from utils.WarmUpLR import WarmupLR
 from utils.Visualizer import Visualizer
@@ -28,7 +27,7 @@ import random
 import logging
 from logging import handlers
 from utils.matrix import claMetrix
-from models.model import IMIGCNN
+from models.model import EyeADCNN,EyeADGNN
 import collections
 
 # set seed
@@ -215,18 +214,19 @@ def CNN_pretrain(vis, model,dataloader_train,dataloader_test,save_dir):
             optimizer.step()
 
             epoch_loss += loss.item()
-            if  (step-1) % int(len(dataloader_train)/4)  == 0:
+            if  (step-1) % int(len(dataloader_train)/8)  == 0:
                 print('-' * 10)
                 print(config.saveName,"%d/%d,train_loss:%0.4f" % (step, (len(dataloader_train.dataset) - 1) // dataloader_train.batch_size + 1, epoch_loss/(step+1)))
                 
-        print('Epoch %d/%d' % (epoch, config.num_epochs - 1))
+        print('Epoch %d/%d' % (epoch+1, config.num_epochs_cnn_pre))
         current_lr = get_lr(optimizer)
 
         if epoch > config.num_epochs_cnn_pre*0.75:  # early stop
             break
 
-        if epoch > epoch*0.5 and epoch%5 == 0:
-            models.append(model)
+        # if epoch > epoch*0.5 and epoch%5 == 0:
+        # if epoch > epoch*0.5 and epoch%5 == 0:
+        models.append(model)
 
     worker_state_dict=[x.state_dict() for x in models]
     weight_keys=list(worker_state_dict[0].keys())
@@ -311,7 +311,7 @@ def GNN_pretrain(modelGNN, modelCNN, data_loaderTrain,dataloader_test, adjL1, ad
                 print('-' * 10)
                 print(config.saveName,"%d/%d,train_loss:%0.4f" % (i, (len(data_loaderTrain.dataset) - 1) // data_loaderTrain.batch_size + 1, runing_loss/(i+1)))
 
-        print('Epoch %d/%d' % (epoch, config.num_epochs - 1))
+        print('Epoch %d/%d' % (epoch+1, config.num_epochs_gnn_pre))
         current_lr = get_lr(optimizer)
 
         Acc, AUC, RE, PRE, f1, kappa,conf = test(modelGNN, modelCNN, dataloader_test, adjL1, adjL2, epoch, preTrain=True)
@@ -564,7 +564,7 @@ if __name__ == '__main__':
     adjMetrixL1 = adjMetrixL1.float()
     adjMetrixL1 = adjMetrixL1.to(device)
 
-    adjMetrixL2 = np.load('/utils/adjMetrix_level2.npy')
+    adjMetrixL2 = np.load('utils/adjMetrix_level2.npy')
     adjMetrixL2 = torch.from_numpy(adjMetrixL2)
     adjMetrixL2 = sp.coo_matrix(adjMetrixL2)
     adjMetrixL2 = normalize(adjMetrixL2 + sp.eye(adjMetrixL2.shape[0])) 
