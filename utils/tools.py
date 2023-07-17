@@ -4,7 +4,7 @@ version:
 Author: Kevin
 Date: 2022-08-19 09:36:49
 LastEditors: Kevin
-LastEditTime: 2022-08-23 20:42:44
+LastEditTime: 2023-07-17 09:33:21
 '''
 
 import os
@@ -14,7 +14,6 @@ import csv
 from utils.matrix import claMetrixCsv
 from utils.confuseMetrix import *
 import torch
-from models.model import threeBranchShareV2
 
 def getResultFromFile(fileName):
     '''

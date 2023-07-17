@@ -9,7 +9,7 @@
 '''
 
 import os
-from datasets import datasetAD, datasetADMulti
+from datasets import datasetADMulti
 import torch
 from torchvision import transforms
 #GPU
@@ -39,7 +39,7 @@ def worker_init_fn(worker_id):
 
 
 class Config(object):  
-    gpu = '7' 
+    gpu = '0' 
     # get attrbute
     def __getitem__(self, key):
         return self.__getattribute__(key)
@@ -50,7 +50,7 @@ class ConfigGraph(Config):
     fold = 1  #5-fold  1-5
     patchSize = 5
 
-    root = '/01.data_process/data'
+    root = '/media/hjk/10E40E1910E40E19/myProject/02.AD-graph/01.data_process/data'
     
     dataName = 'combine'  
     saveName = 'EyeAD-' + dataName +'-BS16-F' + str(fold) +'-P' + str(patchSize)
@@ -58,7 +58,7 @@ class ConfigGraph(Config):
 
     modals = ['浅层血管复合体', '深层血管复合体','脉络膜毛细血管层']
 
-    resultPath = '...'
+    resultPath = 'results'
     savePath = os.path.join(resultPath, saveName)
 
     loadCNN = False
@@ -70,12 +70,12 @@ class ConfigGraph(Config):
     dropout = 0.05
     nb_heads = 2    #multi-head attention
 
-    num_epochs_cnn_pre = 100
-    num_epochs_gnn_pre = 100
-    num_epochs = 200  #joint
+    num_epochs_cnn_pre = 5
+    num_epochs_gnn_pre = 5
+    num_epochs = 5  #joint
 
     batchSize_cnn = 4
-    batchSize_gnn = 4
+    batchSize_gnn = 8
     batchSize_joint = 4
 
     lr_cnn_pre =1e-4
